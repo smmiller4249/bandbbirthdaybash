@@ -1,515 +1,1111 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Beau & Baylor's Birthday Party RSVP</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .bg-grid {
-      background-image: radial-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px);
-      background-size: 20px 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beau & Baylor's Joint Birthday Party RSVP!</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        beau: {
+                            light: '#e0f2fe',
+                            DEFAULT: '#0284c7',
+                            dark: '#0369a1',
+                            accent: '#38bdf8'
+                        },
+                        baylor: {
+                            light: '#fce7f3',
+                            DEFAULT: '#db2777',
+                            dark: '#be185d',
+                            accent: '#f472b6'
+                        },
+                        festive: {
+                            yellow: '#f59e0b',
+                            purple: '#8b5cf6',
+                            mint: '#10b981',
+                            coral: '#ff6b6b'
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Fredoka', 'cursive', 'sans-serif'],
+                        body: ['Outfit', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts: Fredoka & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #f8fafc;
+        }
+
+        .font-display {
+            font-family: 'Fredoka', cursive, sans-serif;
+        }
+
+        /* Floating Balloon Animations */
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(4deg); }
+        }
+        @keyframes float-medium {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-18px) rotate(-5deg); }
+        }
+        .animate-float-slow { animation: float-slow 4s ease-in-out infinite; }
+        .animate-float-medium { animation: float-medium 5s ease-in-out infinite; }
+
+        /* Custom Gradient Text */
+        .gradient-text-joint {
+            background: linear-gradient(135deg, #0284c7 0%, #8b5cf6 50%, #db2777 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Custom Radio Button Card Styling */
+        .connection-card input:checked + label {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+            box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.2);
+        }
+        .status-card input:checked + label.status-accept {
+            border-color: #10b981;
+            background-color: #ecfdf5;
+            color: #065f46;
+        }
+        .status-card input:checked + label.status-decline {
+            border-color: #f43f5e;
+            background-color: #fff1f2;
+            color: #9f1239;
+        }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col bg-grid">
+<body class="text-slate-800 bg-gradient-to-b from-sky-50 via-purple-50 to-pink-50 min-h-screen relative pb-16 overflow-x-hidden">
 
-  <!-- Navigation Bar -->
-  <header class="w-full bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-30">
-    <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
-      <div class="flex items-center space-x-2">
-        <span class="text-2xl">🎉</span>
-        <span class="font-extrabold text-lg bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-          Beau & Baylor
-        </span>
-      </div>
-      <button onclick="openHostPortal()" class="text-sm font-semibold text-slate-600 hover:text-indigo-600 px-3 py-1.5 rounded-lg hover:bg-slate-100 transition">
-        Host Portal 🔒
-      </button>
-    </div>
-  </header>
+    <!-- Top Navigation Header -->
+    <nav class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-200/60 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <span class="text-2xl">🎈</span>
+                <span class="font-display font-bold text-xl sm:text-2xl tracking-wide gradient-text-joint">Beau & Baylor's Party</span>
+            </div>
+            <div class="flex items-center space-x-3">
+                <a href="#rsvp" class="hidden sm:inline-flex items-center px-4 py-2 rounded-full bg-amber-500 hover:bg-amber-600 text-white font-medium text-sm transition-all shadow-sm hover:shadow">
+                    <i class="fa-solid fa-paper-plane mr-2"></i> RSVP Now
+                </a>
+                <button id="hostPortalBtn" onclick="openHostModal()" class="inline-flex items-center px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-medium transition-all border border-slate-300">
+                    <i class="fa-solid fa-lock text-amber-500 mr-1.5"></i> Host Portal
+                </button>
+            </div>
+        </div>
+    </nav>
 
-  <!-- Hero Section -->
-  <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-8 space-y-8">
-    <section class="text-center space-y-4">
-      <div class="inline-flex items-center space-x-2 bg-indigo-50 border border-indigo-100 text-indigo-700 px-4 py-1.5 rounded-full text-sm font-semibold">
-        🎈 Double Birthday Celebration!
-      </div>
-      <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
-        Beau is turning <span class="text-indigo-600">5</span> & <br class="sm:hidden" />
-        Baylor is turning <span class="text-pink-600">8</span>!
-      </h1>
-      <p class="text-lg text-slate-600 max-w-lg mx-auto">
-        Join us for an afternoon of fun, games, and celebration at Recess in Roswell.
-      </p>
-    </section>
-
-    <!-- Event Details Card -->
-    <section class="bg-white rounded-3xl p-6 md:p-8 shadow-xl shadow-slate-200/50 border border-slate-100 space-y-6">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        
-        <!-- Date & Time -->
-        <div class="flex items-start space-x-4 p-4 rounded-2xl bg-indigo-50/50 border border-indigo-100/50">
-          <div class="text-3xl p-2 bg-indigo-100 rounded-xl">📅</div>
-          <div>
-            <h2 class="font-bold text-slate-900">Date & Time</h2>
-            <p class="text-slate-700 font-medium">Sunday, December 13th</p>
-            <p class="text-slate-500 text-sm">12:00 PM – 2:00 PM</p>
-          </div>
+    <!-- Hero Banner Section -->
+    <header class="relative overflow-hidden pt-8 pb-10 sm:pt-12 sm:pb-14 text-center max-w-5xl mx-auto px-4">
+        <!-- Floating Balloons -->
+        <div class="absolute top-4 left-4 sm:left-12 opacity-80 animate-float-slow pointer-events-none select-none">
+            <div class="text-5xl sm:text-7xl filter drop-shadow-md">🎈</div>
+            <span class="text-xs font-bold bg-sky-200 text-sky-800 px-2 py-0.5 rounded-full shadow">5</span>
+        </div>
+        <div class="absolute top-10 right-4 sm:right-12 opacity-80 animate-float-medium pointer-events-none select-none">
+            <div class="text-5xl sm:text-7xl filter drop-shadow-md">🎁</div>
+            <span class="text-xs font-bold bg-pink-200 text-pink-800 px-2 py-0.5 rounded-full shadow">8</span>
         </div>
 
-        <!-- Location -->
-        <div class="flex items-start space-x-4 p-4 rounded-2xl bg-pink-50/50 border border-pink-100/50">
-          <div class="text-3xl p-2 bg-pink-100 rounded-xl">📍</div>
-          <div>
-            <h2 class="font-bold text-slate-900">Location</h2>
-            <p class="text-slate-700 font-medium">Recess in Roswell</p>
-            <p class="text-slate-500 text-sm">11510 Woodstock Rd, Roswell, GA 30075</p>
-            <a href="https://maps.google.com/?q=11510+Woodstock+Rd,+Roswell,+GA+30075" target="_blank" rel="noopener" class="inline-flex items-center text-xs font-semibold text-pink-600 hover:underline mt-1">
-              Open in Google Maps &rarr;
+        <div class="inline-block px-4 py-1.5 bg-amber-100 border border-amber-300 text-amber-800 rounded-full text-xs sm:text-sm font-semibold tracking-wide uppercase mb-4 shadow-sm">
+            🎉 Double Birthday Celebration!
+        </div>
+
+        <h1 class="font-display font-extrabold text-4xl sm:text-6xl md:text-7xl text-slate-900 leading-tight mb-4 tracking-tight">
+            Double the Fun! <br class="hidden sm:inline">
+            <span class="gradient-text-joint">Beau & Baylor are Turning 5 & 8!</span>
+        </h1>
+
+        <!-- Age Badges Card -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 my-6">
+            <div class="flex items-center bg-white border-2 border-sky-400 rounded-2xl px-5 py-3 shadow-md transform transition hover:-translate-y-1">
+                <div class="w-12 h-12 rounded-full bg-sky-500 text-white font-display font-bold text-2xl flex items-center justify-center mr-3 shadow">
+                    5
+                </div>
+                <div class="text-left">
+                    <p class="text-xs font-semibold uppercase tracking-wider text-sky-600">Beau is Turning</p>
+                    <p class="font-display font-bold text-xl text-slate-800">FIVE! 🚀</p>
+                </div>
+            </div>
+
+            <div class="hidden sm:block text-2xl text-slate-400 font-bold">&</div>
+
+            <div class="flex items-center bg-white border-2 border-pink-400 rounded-2xl px-5 py-3 shadow-md transform transition hover:-translate-y-1">
+                <div class="w-12 h-12 rounded-full bg-pink-500 text-white font-display font-bold text-2xl flex items-center justify-center mr-3 shadow">
+                    8
+                </div>
+                <div class="text-left">
+                    <p class="text-xs font-semibold uppercase tracking-wider text-pink-600">Baylor is Turning</p>
+                    <p class="font-display font-bold text-xl text-slate-800">EIGHT! ⭐</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Countdown Timer -->
+        <div class="max-w-xl mx-auto bg-white/90 rounded-2xl p-4 sm:p-6 shadow-xl border border-slate-200/80 mb-8">
+            <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">
+                <i class="fa-regular fa-clock text-amber-500 mr-1"></i> Party Countdown
+            </p>
+            <div class="grid grid-cols-4 gap-2 sm:gap-4 text-center">
+                <div class="bg-slate-50 rounded-xl p-2 sm:p-3 border border-slate-100">
+                    <span id="countDays" class="font-display font-bold text-2xl sm:text-4xl text-sky-600 block">--</span>
+                    <span class="text-[10px] sm:text-xs text-slate-500 uppercase font-medium">Days</span>
+                </div>
+                <div class="bg-slate-50 rounded-xl p-2 sm:p-3 border border-slate-100">
+                    <span id="countHours" class="font-display font-bold text-2xl sm:text-4xl text-indigo-600 block">--</span>
+                    <span class="text-[10px] sm:text-xs text-slate-500 uppercase font-medium">Hours</span>
+                </div>
+                <div class="bg-slate-50 rounded-xl p-2 sm:p-3 border border-slate-100">
+                    <span id="countMins" class="font-display font-bold text-2xl sm:text-4xl text-purple-600 block">--</span>
+                    <span class="text-[10px] sm:text-xs text-slate-500 uppercase font-medium">Mins</span>
+                </div>
+                <div class="bg-slate-50 rounded-xl p-2 sm:p-3 border border-slate-100">
+                    <span id="countSecs" class="font-display font-bold text-2xl sm:text-4xl text-pink-600 block">--</span>
+                    <span class="text-[10px] sm:text-xs text-slate-500 uppercase font-medium">Secs</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hero Quick Action Buttons -->
+        <div class="flex flex-wrap items-center justify-center gap-3">
+            <a href="#rsvp" class="px-6 py-3.5 rounded-full bg-gradient-to-r from-sky-500 via-indigo-500 to-pink-500 hover:opacity-95 text-white font-bold text-base shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5">
+                <i class="fa-solid fa-heart mr-2"></i> RSVP Today
             </a>
-          </div>
+            <button onclick="openCalendarModal()" class="px-5 py-3.5 rounded-full bg-white hover:bg-slate-50 text-slate-700 font-semibold text-base border border-slate-300 shadow-sm transition-all">
+                <i class="fa-regular fa-calendar-plus text-sky-600 mr-2"></i> Add to Calendar
+            </button>
+            <a href="https://www.google.com/maps/search/?api=1&query=11510+Woodstock+Rd,+Roswell,+GA+30075" target="_blank" rel="noopener noreferrer" class="px-5 py-3.5 rounded-full bg-white hover:bg-slate-50 text-slate-700 font-semibold text-base border border-slate-300 shadow-sm transition-all">
+                <i class="fa-solid fa-map-location-dot text-rose-500 mr-2"></i> Get Directions
+            </a>
         </div>
-      </div>
+    </header>
 
-      <!-- Features Pills -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-        <div class="flex items-center justify-center space-x-2 p-3 bg-slate-50 border border-slate-200/60 rounded-xl text-xs font-semibold text-slate-700 text-center">
-          <span>🛝</span> <span>Indoor & Outdoor Play</span>
-        </div>
-        <div class="flex items-center justify-center space-x-2 p-3 bg-slate-50 border border-slate-200/60 rounded-xl text-xs font-semibold text-slate-700 text-center">
-          <span>👨‍👩‍👧‍👦</span> <span>Siblings & Families Welcome</span>
-        </div>
-        <div class="flex items-center justify-center space-x-2 p-3 bg-slate-50 border border-slate-200/60 rounded-xl text-xs font-semibold text-slate-700 text-center">
-          <span>🥂</span> <span>Alcohol Available for Purchase</span>
-        </div>
-      </div>
+    <!-- Key Event Details Section -->
+    <section class="max-w-5xl mx-auto px-4 py-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Card 1: Date & Time -->
+            <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-100 hover:shadow-lg transition-all flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-calendar-day"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-slate-900 mb-2">When</h3>
+                    <p class="text-slate-700 font-semibold text-lg">Sunday, December 13th</p>
+                    <p class="text-slate-600 font-medium">12:00 PM – 2:00 PM</p>
+                </div>
+            </div>
 
-      <!-- Add to Calendar & Countdown -->
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-slate-100">
-        <div id="countdown" class="flex space-x-3 text-center">
-          <div class="bg-slate-100 rounded-xl px-3 py-1.5">
-            <span id="cd-days" class="block text-lg font-bold text-indigo-600">--</span>
-            <span class="text-[10px] text-slate-500 uppercase font-bold">Days</span>
-          </div>
-          <div class="bg-slate-100 rounded-xl px-3 py-1.5">
-            <span id="cd-hours" class="block text-lg font-bold text-indigo-600">--</span>
-            <span class="text-[10px] text-slate-500 uppercase font-bold">Hours</span>
-          </div>
-          <div class="bg-slate-100 rounded-xl px-3 py-1.5">
-            <span id="cd-mins" class="block text-lg font-bold text-indigo-600">--</span>
-            <span class="text-[10px] text-slate-500 uppercase font-bold">Mins</span>
-          </div>
+            <!-- Card 2: Venue Location -->
+            <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-100 hover:shadow-lg transition-all flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-slate-900 mb-2">Where</h3>
+                    <p class="text-slate-800 font-bold">Recess in Roswell</p>
+                    <p class="text-slate-600 text-sm">11510 Woodstock Rd<br>Roswell, GA 30075</p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-100">
+                    <a href="https://www.google.com/maps/search/?api=1&query=11510+Woodstock+Rd,+Roswell,+GA+30075" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-sky-600 hover:text-sky-700 flex items-center">
+                        Open in Google Maps <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 3: Play & Venue Info -->
+            <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-100 hover:shadow-lg transition-all flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-gamepad"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-slate-900 mb-2">Indoor & Outdoor Play</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Recess features awesome indoor active play structures plus a fun outdoor play lawn for kids of all ages to run, jump, and explore!
+                    </p>
+                </div>
+            </div>
         </div>
 
-        <button onclick="addToCalendar()" class="w-full sm:w-auto px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition flex items-center justify-center space-x-2">
-          <span>📅 Add to Calendar</span>
-        </button>
-      </div>
+        <!-- Family & Adult Refreshment Highlights Banner -->
+        <div class="mt-6 bg-gradient-to-r from-emerald-50 via-teal-50 to-sky-50 rounded-3xl p-6 sm:p-8 border border-emerald-200/80 shadow-md">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <div class="space-y-3">
+                    <div class="inline-flex items-center space-x-2 bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full">
+                        <i class="fa-solid fa-users"></i>
+                        <span>Whole Family Welcome!</span>
+                    </div>
+                    <h3 class="font-display font-bold text-2xl text-slate-900">Bring the Whole Crew!</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Siblings and families are all warmly invited to join the celebration! We just need an overall head count so we can prepare accordingly.
+                    </p>
+                </div>
+
+                <div class="bg-white/80 backdrop-blur rounded-2xl p-4 sm:p-5 border border-emerald-100 space-y-3 shadow-sm">
+                    <div class="flex items-start space-x-3">
+                        <div class="text-amber-500 text-xl mt-0.5"><i class="fa-solid fa-cake-candles"></i></div>
+                        <div>
+                            <p class="font-bold text-slate-800 text-sm">Food & Birthday Treats</p>
+                            <p class="text-slate-600 text-xs">Kid-friendly lunch, refreshments, and birthday cake for everyone!</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3 pt-2 border-t border-slate-100">
+                        <div class="text-indigo-500 text-xl mt-0.5"><i class="fa-solid fa-glass-cheers"></i></div>
+                        <div>
+                            <p class="font-bold text-slate-800 text-sm">Adult Beverages Available</p>
+                            <p class="text-slate-600 text-xs">Alcohol & specialty drinks are available for purchase directly at the Recess cafe/bar.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <!-- RSVP Form Section -->
-    <section class="bg-white rounded-3xl p-6 md:p-8 shadow-xl shadow-slate-200/50 border border-slate-100 space-y-6">
-      <div class="border-b border-slate-100 pb-4">
-        <h2 class="text-2xl font-black text-slate-900">RSVP Here</h2>
-        <p class="text-slate-500 text-sm">Please let us know if your family can make it!</p>
-      </div>
-
-      <form id="rsvpForm" onsubmit="handleFormSubmit(event)" class="space-y-6">
-        
-        <!-- Guest Name -->
-        <div>
-          <label class="block text-sm font-bold text-slate-700 mb-1">Your Full Name *</label>
-          <input type="text" id="guestName" required placeholder="e.g. Jane Smith" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
-        </div>
-
-        <!-- Attendance Choice -->
-        <div>
-          <label class="block text-sm font-bold text-slate-700 mb-2">Will you be attending? *</label>
-          <div class="grid grid-cols-2 gap-3">
-            <label class="relative flex items-center justify-center p-3 rounded-xl border-2 border-slate-200 cursor-pointer hover:border-indigo-300 transition has-[:checked]:border-indigo-600 has-[:checked]:bg-indigo-50/50">
-              <input type="radio" name="attending" value="Yes" checked class="sr-only">
-              <span class="font-bold text-slate-800">🎉 Joyfully Accept</span>
-            </label>
-            <label class="relative flex items-center justify-center p-3 rounded-xl border-2 border-slate-200 cursor-pointer hover:border-pink-300 transition has-[:checked]:border-pink-600 has-[:checked]:bg-pink-50/50">
-              <input type="radio" name="attending" value="No" class="sr-only">
-              <span class="font-bold text-slate-800">😢 Regretfully Decline</span>
-            </label>
-          </div>
-        </div>
-
-        <!-- Connection Radio Group -->
-        <div>
-          <label class="block text-sm font-bold text-slate-700 mb-2">Who do you know? *</label>
-          <div class="grid grid-cols-3 gap-3">
-            <label class="relative flex items-center justify-center p-3 rounded-xl border-2 border-slate-200 cursor-pointer hover:border-indigo-300 transition has-[:checked]:border-indigo-600 has-[:checked]:bg-indigo-50/50 text-center">
-              <input type="radio" name="connection" value="Beau" class="sr-only">
-              <span class="font-bold text-xs sm:text-sm text-slate-800">Beau</span>
-            </label>
-            <label class="relative flex items-center justify-center p-3 rounded-xl border-2 border-slate-200 cursor-pointer hover:border-pink-300 transition has-[:checked]:border-pink-600 has-[:checked]:bg-pink-50/50 text-center">
-              <input type="radio" name="connection" value="Baylor" class="sr-only">
-              <span class="font-bold text-xs sm:text-sm text-slate-800">Baylor</span>
-            </label>
-            <label class="relative flex items-center justify-center p-3 rounded-xl border-2 border-slate-200 cursor-pointer hover:border-purple-300 transition has-[:checked]:border-purple-600 has-[:checked]:bg-purple-50/50 text-center">
-              <input type="radio" name="connection" value="Both" checked class="sr-only">
-              <span class="font-bold text-xs sm:text-sm text-slate-800">Both</span>
-            </label>
-          </div>
-        </div>
-
-        <!-- Headcount Counters -->
-        <div id="headcountContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100">
-          <div>
-            <label class="block text-xs font-bold text-slate-600 mb-1">Number of Adults</label>
-            <div class="flex items-center space-x-3">
-              <button type="button" onclick="adjustCount('adultCount', -1)" class="w-10 h-10 rounded-lg bg-white border border-slate-200 font-bold text-lg text-slate-600 shadow-sm hover:bg-slate-100">-</button>
-              <input type="number" id="adultCount" value="1" min="0" readonly class="w-12 text-center bg-transparent font-bold text-lg text-slate-800 focus:outline-none">
-              <button type="button" onclick="adjustCount('adultCount', 1)" class="w-10 h-10 rounded-lg bg-white border border-slate-200 font-bold text-lg text-slate-600 shadow-sm hover:bg-slate-100">+</button>
+    <!-- Interactive RSVP Form Section -->
+    <section id="rsvp" class="max-w-3xl mx-auto px-4 py-8">
+        <div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
+            <!-- Form Header -->
+            <div class="bg-gradient-to-r from-sky-500 via-indigo-500 to-pink-500 p-6 sm:p-8 text-white text-center relative">
+                <span class="text-3xl mb-2 block">💌</span>
+                <h2 class="font-display font-bold text-3xl sm:text-4xl">Party RSVP</h2>
+                <p class="text-sky-100 text-sm sm:text-base mt-1">Please respond so we can get an accurate head count!</p>
             </div>
-          </div>
 
-          <div>
-            <label class="block text-xs font-bold text-slate-600 mb-1">Number of Children</label>
-            <div class="flex items-center space-x-3">
-              <button type="button" onclick="adjustCount('kidCount', -1)" class="w-10 h-10 rounded-lg bg-white border border-slate-200 font-bold text-lg text-slate-600 shadow-sm hover:bg-slate-100">-</button>
-              <input type="number" id="kidCount" value="1" min="0" readonly class="w-12 text-center bg-transparent font-bold text-lg text-slate-800 focus:outline-none">
-              <button type="button" onclick="adjustCount('kidCount', 1)" class="w-10 h-10 rounded-lg bg-white border border-slate-200 font-bold text-lg text-slate-600 shadow-sm hover:bg-slate-100">+</button>
-            </div>
-          </div>
+            <form id="rsvpForm" onsubmit="handleRsvpSubmit(event)" class="p-6 sm:p-8 space-y-6">
+const GOOGLE_SHEET_SCRIPT_URL = "const GOOGLE_SHEET_SCRIPT_URL = "YOUR_WEB_APP_URL_HERE";";
+                <!-- 1. RSVP Attendance Status -->
+                <div>
+                    <label class="block text-slate-800 font-bold text-sm mb-3">Will you be attending? <span class="text-rose-500">*</span></label>
+                    
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 status-card">
+                        <div>
+                            <input type="radio" id="statusAccept" name="attendanceStatus" value="Accepts" class="hidden" required checked>
+                            <label for="statusAccept" class="status-accept flex items-center justify-center p-4 rounded-2xl border-2 border-slate-200 cursor-pointer font-bold transition-all text-slate-700 hover:border-emerald-300">
+                                <span class="text-2xl mr-2">🎉</span> Yes, We'll Be There!
+                            </label>
+                        </div>
+                        <div>
+                            <input type="radio" id="statusDecline" name="attendanceStatus" value="Declines" class="hidden">
+                            <label for="statusDecline" class="status-decline flex items-center justify-center p-4 rounded-2xl border-2 border-slate-200 cursor-pointer font-bold transition-all text-slate-700 hover:border-rose-300">
+                                <span class="text-2xl mr-2">😢</span> Regretfully Decline
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Connection Selection (Beau, Baylor, or Both) -->
+                <div>
+                    <label class="block text-slate-800 font-bold text-sm mb-2">Who do you know? <span class="text-rose-500">*</span></label>
+                    <p class="text-xs text-slate-500 mb-3">Let us know who your family is celebrating!</p>
+                    <div class="grid grid-cols-3 gap-3 connection-card">
+                        <div>
+                            <input type="radio" id="knowBeau" name="connection" value="Beau" class="hidden" required>
+                            <label for="knowBeau" class="flex flex-col items-center justify-center p-3 sm:p-4 rounded-2xl border-2 border-slate-200 cursor-pointer transition-all hover:bg-sky-50 text-center">
+                                <span class="text-2xl mb-1">🚀</span>
+                                <span class="font-bold text-xs sm:text-sm text-sky-700">Beau</span>
+                                <span class="text-[10px] text-slate-400">Turning 5</span>
+                            </label>
+                        </div>
+                        <div>
+                            <input type="radio" id="knowBaylor" name="connection" value="Baylor" class="hidden">
+                            <label for="knowBaylor" class="flex flex-col items-center justify-center p-3 sm:p-4 rounded-2xl border-2 border-slate-200 cursor-pointer transition-all hover:bg-pink-50 text-center">
+                                <span class="text-2xl mb-1">⭐</span>
+                                <span class="font-bold text-xs sm:text-sm text-pink-700">Baylor</span>
+                                <span class="text-[10px] text-slate-400">Turning 8</span>
+                            </label>
+                        </div>
+                        <div>
+                            <input type="radio" id="knowBoth" name="connection" value="Both" class="hidden" checked>
+                            <label for="knowBoth" class="flex flex-col items-center justify-center p-3 sm:p-4 rounded-2xl border-2 border-slate-200 cursor-pointer transition-all hover:bg-purple-50 text-center">
+                                <span class="text-2xl mb-1">🥳</span>
+                                <span class="font-bold text-xs sm:text-sm text-purple-700">Both!</span>
+                                <span class="text-[10px] text-slate-400">Beau & Baylor</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Guest Name Fields -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="guestFirstName" class="block text-xs font-bold text-slate-700 mb-1">First Name <span class="text-rose-500">*</span></label>
+                        <input type="text" id="guestFirstName" required placeholder="First Name" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none text-sm transition">
+                    </div>
+                    <div>
+                        <label for="guestLastName" class="block text-xs font-bold text-slate-700 mb-1">Last Name <span class="text-rose-500">*</span></label>
+                        <input type="text" id="guestLastName" required placeholder="Last Name" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none text-sm transition">
+                    </div>
+                </div>
+
+                <!-- 4. Contact Information -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="guestEmail" class="block text-xs font-bold text-slate-700 mb-1">Email Address <span class="text-rose-500">*</span></label>
+                        <input type="email" id="guestEmail" required placeholder="name@example.com" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none text-sm transition">
+                    </div>
+                    <div>
+                        <label for="guestPhone" class="block text-xs font-bold text-slate-700 mb-1">Phone Number (Optional)</label>
+                        <input type="tel" id="guestPhone" placeholder="(404) 555-0199" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none text-sm transition">
+                    </div>
+                </div>
+
+                <!-- 5. Headcount Section (Numbers only, no children names/ages) -->
+                <div id="headcountContainer" class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-4">
+                    <h4 class="font-display font-bold text-slate-800 text-sm flex items-center">
+                        <i class="fa-solid fa-users text-sky-500 mr-2"></i> Total Family Head Count
+                    </h4>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Adults Counter -->
+                        <div class="bg-white p-3 rounded-xl border border-slate-200 flex items-center justify-between">
+                            <div>
+                                <span class="block text-xs font-bold text-slate-700">Adults Attending</span>
+                                <span class="text-[10px] text-slate-400">Includes parents</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <button type="button" onclick="adjustCount('adultsCount', -1)" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 font-bold text-slate-700 flex items-center justify-center">-</button>
+                                <span id="adultsCountDisplay" class="w-6 text-center font-bold text-slate-800">1</span>
+                                <input type="hidden" id="adultsCount" value="1">
+                                <button type="button" onclick="adjustCount('adultsCount', 1)" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 font-bold text-slate-700 flex items-center justify-center">+</button>
+                            </div>
+                        </div>
+
+                        <!-- Children Counter -->
+                        <div class="bg-white p-3 rounded-xl border border-slate-200 flex items-center justify-between">
+                            <div>
+                                <span class="block text-xs font-bold text-slate-700">Children Attending</span>
+                                <span class="text-[10px] text-slate-400">Kids & siblings</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <button type="button" onclick="adjustCount('kidsCount', -1)" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 font-bold text-slate-700 flex items-center justify-center">-</button>
+                                <span id="kidsCountDisplay" class="w-6 text-center font-bold text-slate-800">1</span>
+                                <input type="hidden" id="kidsCount" value="1">
+                                <button type="button" onclick="adjustCount('kidsCount', 1)" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 font-bold text-slate-700 flex items-center justify-center">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Message for Birthday Kids -->
+                <div>
+                    <label for="birthdayWish" class="block text-xs font-bold text-slate-700 mb-1">Message for Beau & Baylor! 🎂 (Optional)</label>
+                    <textarea id="birthdayWish" rows="2" placeholder="Leave a sweet note for the birthday kids..." class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none text-sm transition"></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="submitBtn" class="w-full py-4 rounded-2xl bg-gradient-to-r from-sky-500 via-indigo-500 to-pink-500 hover:opacity-95 text-white font-display font-bold text-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 flex items-center justify-center">
+                    <span id="submitBtnText"><i class="fa-solid fa-paper-plane mr-2"></i> Submit RSVP</span>
+                    <span id="submitBtnSpinner" class="hidden"><i class="fa-solid fa-circle-notch fa-spin mr-2"></i> Saving...</span>
+                </button>
+            </form>
         </div>
-
-        <!-- Optional Note -->
-        <div>
-          <label class="block text-sm font-bold text-slate-700 mb-1">Note for the Birthday Crew (Optional)</label>
-          <textarea id="guestNote" rows="2" placeholder="Send a message to Beau & Baylor..." class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"></textarea>
-        </div>
-
-        <!-- Submit Button -->
-        <button type="submit" id="submitBtn" class="w-full py-4 bg-gradient-to-r from-indigo-600 to-pink-600 hover:from-indigo-700 hover:to-pink-700 text-white font-extrabold rounded-2xl shadow-lg shadow-indigo-500/25 transition transform active:scale-[0.99] flex items-center justify-center space-x-2">
-          <span>Submit RSVP</span>
-        </button>
-      </form>
     </section>
-  </main>
 
-  <!-- Confirmation Modal -->
-  <div id="confirmModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl text-center space-y-4">
-      <div class="text-5xl">🎁</div>
-      <h3 class="text-2xl font-black text-slate-900">RSVP Received!</h3>
-      <p id="confirmText" class="text-slate-600 text-sm">Thank you for submitting your response.</p>
-      <button onclick="closeModal()" class="w-full py-3 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition">
-        Got it!
-      </button>
+    <!-- RSVP Confirmation Modal -->
+    <div id="confirmationModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-100 text-center relative">
+            <button onclick="closeConfirmationModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-100 text-slate-500 hover:text-slate-800 flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="w-16 h-16 bg-emerald-100 text-emerald-500 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+
+            <h3 class="font-display font-bold text-2xl sm:text-3xl text-slate-900 mb-2">RSVP Received! 🎉</h3>
+            <p id="confirmMessageText" class="text-slate-600 text-sm mb-6">Thank you! Your response has been saved.</p>
+
+            <div id="confirmDetailsBox" class="bg-slate-50 p-4 rounded-2xl text-left border border-slate-200 mb-6 space-y-2 text-xs sm:text-sm">
+                <!-- Dynamically Populated -->
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3">
+                <button onclick="openCalendarModal()" class="flex-1 py-3 px-4 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-bold text-sm shadow">
+                    <i class="fa-regular fa-calendar-plus mr-1.5"></i> Add to Calendar
+                </button>
+                <button onclick="closeConfirmationModal()" class="flex-1 py-3 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm">
+                    Done
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <!-- Host Portal Modal -->
-  <div id="hostModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-3xl p-6 md:p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl space-y-6">
-      
-      <!-- Lock Screen -->
-      <div id="hostLockScreen" class="text-center space-y-4 py-8 max-w-sm mx-auto">
-        <div class="text-4xl">🔐</div>
-        <h3 class="text-2xl font-black text-slate-900">Host Portal</h3>
-        <p class="text-slate-500 text-sm">Enter host PIN to access party RSVPs</p>
-        <input type="password" id="hostPinInput" placeholder="Enter PIN" class="w-full text-center px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-        <button onclick="verifyPin()" class="w-full py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition">
-          Unlock Dashboard
-        </button>
-      </div>
+    <!-- Calendar Download Modal -->
+    <div id="calendarModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl text-center relative">
+            <button onclick="closeCalendarModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
 
-      <!-- Unlocked Dashboard -->
-      <div id="hostDashboard" class="hidden space-y-6">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
-          <div>
-            <h3 class="text-2xl font-black text-slate-900">Guest Dashboard</h3>
-            <p class="text-slate-500 text-sm">Live RSVPs synced with Google Sheet</p>
-          </div>
-          <div class="flex items-center space-x-2">
-            <button onclick="exportCSV()" class="px-3 py-2 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl text-xs font-bold hover:bg-emerald-100 transition">
-              📊 Export CSV
-            </button>
-            <button onclick="loadHostData()" class="px-3 py-2 bg-slate-100 text-slate-700 rounded-xl text-xs font-bold hover:bg-slate-200 transition">
-              🔄 Refresh
-            </button>
-            <button onclick="changePin()" class="px-3 py-2 bg-slate-100 text-slate-700 rounded-xl text-xs font-bold hover:bg-slate-200 transition">
-              🔑 Change PIN
-            </button>
-            <button onclick="closeHostPortal()" class="px-3 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-slate-800 transition">
-              Close
-            </button>
-          </div>
+            <div class="w-12 h-12 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-xl mx-auto mb-3">
+                <i class="fa-regular fa-calendar-check"></i>
+            </div>
+            <h3 class="font-display font-bold text-xl text-slate-900 mb-1">Add Event to Calendar</h3>
+            <p class="text-slate-500 text-xs mb-6">Beau & Baylor's Joint Birthday Party • Dec 13, 12:00 PM</p>
+
+            <div class="space-y-3">
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Beau+%26+Baylor%27s+Joint+Birthday+Party%21&dates=20261213T170000Z/20261213T190000Z&details=Joint+Birthday+Party+for+Beau+%28turning+5%29+and+Baylor+%28turning+8%29%21+Indoor/outdoor+play+at+Recess+in+Roswell.+Food+provided.+Adult+beverages+available+for+purchase.&location=11510+Woodstock+Rd,+Roswell,+GA+30075" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 rounded-xl bg-white border-2 border-slate-200 hover:border-sky-500 font-bold text-slate-700 flex items-center justify-center transition">
+                    <i class="fa-brands fa-google text-rose-500 mr-2 text-lg"></i> Add to Google Calendar
+                </a>
+                <button onclick="downloadIcsFile()" class="w-full py-3 px-4 rounded-xl bg-white border-2 border-slate-200 hover:border-indigo-500 font-bold text-slate-700 flex items-center justify-center transition">
+                    <i class="fa-solid fa-file-arrow-down text-indigo-500 mr-2 text-lg"></i> Download iCal / Outlook (.ics)
+                </button>
+            </div>
         </div>
-
-        <!-- Summary Stats Cards -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <div class="bg-indigo-50/50 p-4 rounded-2xl border border-indigo-100 text-center">
-            <span class="block text-2xl font-black text-indigo-600" id="statTotalAttending">0</span>
-            <span class="text-xs font-bold text-slate-500 uppercase">Attending</span>
-          </div>
-          <div class="bg-blue-50/50 p-4 rounded-2xl border border-blue-100 text-center">
-            <span class="block text-2xl font-black text-blue-600" id="statAdults">0</span>
-            <span class="text-xs font-bold text-slate-500 uppercase">Adults</span>
-          </div>
-          <div class="bg-pink-50/50 p-4 rounded-2xl border border-pink-100 text-center">
-            <span class="block text-2xl font-black text-pink-600" id="statKids">0</span>
-            <span class="text-xs font-bold text-slate-500 uppercase">Children</span>
-          </div>
-          <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-center">
-            <span class="block text-2xl font-black text-slate-600" id="statDeclined">0</span>
-            <span class="text-xs font-bold text-slate-500 uppercase">Declined</span>
-          </div>
-        </div>
-
-        <!-- RSVP Table -->
-        <div class="overflow-x-auto border border-slate-200 rounded-2xl">
-          <table class="w-full text-left border-collapse text-sm">
-            <thead>
-              <tr class="bg-slate-50 text-slate-600 border-b border-slate-200">
-                <th class="p-3 font-bold">Name</th>
-                <th class="p-3 font-bold">Status</th>
-                <th class="p-3 font-bold">Adults</th>
-                <th class="p-3 font-bold">Kids</th>
-                <th class="p-3 font-bold">Knows</th>
-                <th class="p-3 font-bold">Note</th>
-              </tr>
-            </thead>
-            <tbody id="rsvpTableBody" class="divide-y divide-slate-100 text-slate-700">
-              <!-- Dynamically Populated -->
-            </tbody>
-          </table>
-        </div>
-      </div>
     </div>
-  </div>
 
-  <script>
-    // Google Sheet Web App URL
-    const GOOGLE_SHEET_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxGOoK0GZxdT11VrXcgwwXrgJAgAmzNMyHQTtaxD_8-XOo5q3c8in8Oo92q4j-g85rUFw/exec";
-    
-    let activePin = localStorage.getItem('host_pin') || "1234";
-    let cachedRSVPs = [];
+    <!-- Host Admin Modal & Dashboard -->
+    <div id="hostModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-6 hidden">
+        <div class="bg-white rounded-3xl max-w-5xl w-full max-h-[92vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden">
 
-    // Form Adjustments
-    function adjustCount(id, delta) {
-      const input = document.getElementById(id);
-      let val = parseInt(input.value) + delta;
-      if (val < 0) val = 0;
-      input.value = val;
-    }
+            <!-- Modal Header -->
+            <div class="p-4 sm:p-6 bg-slate-900 text-white flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500 text-slate-900 flex items-center justify-center font-bold text-lg">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-bold text-xl">Host Party Dashboard</h3>
+                        <p class="text-xs text-slate-400">Real-time RSVP headcounts & guest responses</p>
+                    </div>
+                </div>
+                <button onclick="closeHostModal()" class="w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
 
-    // Toggle Attendance UI
-    document.querySelectorAll('input[name="attending"]').forEach(radio => {
-      radio.addEventListener('change', (e) => {
-        const hc = document.getElementById('headcountContainer');
-        if (e.target.value === 'No') {
-          hc.classList.add('opacity-40', 'pointer-events-none');
-        } else {
-          hc.classList.remove('opacity-40', 'pointer-events-none');
+            <!-- Host Authentication View (PIN) -->
+            <div id="hostAuthView" class="p-8 text-center max-w-md mx-auto my-auto space-y-4">
+                <div class="w-16 h-16 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-2xl mx-auto">
+                    <i class="fa-solid fa-key"></i>
+                </div>
+                <h4 class="font-display font-bold text-2xl text-slate-800">Enter Host PIN</h4>
+                <p class="text-xs text-slate-500">Access protected guest responses and headcounts.</p>
+                
+                <div id="pinErrorMessage" class="hidden text-xs bg-rose-50 border border-rose-200 text-rose-700 p-2 rounded-lg">
+                    Incorrect PIN. Please try again.
+                </div>
+
+                <input type="password" id="hostPinInput" placeholder="Enter PIN" class="w-full text-center tracking-widest text-2xl font-bold py-3 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-amber-500">
+                <button onclick="verifyHostPin()" class="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold transition shadow-sm">
+                    Unlock Dashboard
+                </button>
+            </div>
+
+            <!-- Host Dashboard View (Unlocked) -->
+            <div id="hostDashboardView" class="hidden flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
+
+                <!-- Real-Time Sync Indicator Bar -->
+                <div class="flex items-center justify-between text-xs text-slate-500 bg-slate-50 px-4 py-2 rounded-xl border border-slate-200">
+                    <div class="flex items-center space-x-2">
+                        <span class="relative flex h-2.5 w-2.5">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                        </span>
+                        <span class="font-semibold text-slate-700">Live Sync Active</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="toggleChangePinUI()" class="px-3 py-1.5 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold flex items-center transition">
+                            <i class="fa-solid fa-key mr-1.5"></i> Change PIN
+                        </button>
+                        <button onclick="exportToCSV()" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold flex items-center shadow-sm">
+                            <i class="fa-solid fa-file-csv mr-1.5"></i> Export CSV
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Inline Change PIN Box -->
+                <div id="changePinBox" class="hidden bg-slate-50 p-3 rounded-xl border border-slate-200 text-left space-y-2">
+                    <label class="block text-[11px] font-bold text-slate-700">Set New Host PIN:</label>
+                    <div class="flex gap-2">
+                        <input type="password" id="newPinInput" placeholder="New PIN (min 4 chars)" class="flex-1 px-3 py-1.5 text-xs border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-amber-500">
+                        <button type="button" onclick="updateHostPin()" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold text-xs rounded-lg transition">Save</button>
+                    </div>
+                    <p id="pinLengthError" class="hidden text-[10px] text-rose-600 font-sans">PIN must be at least 4 characters.</p>
+                    <p id="pinChangeSuccess" class="hidden text-xs bg-emerald-50 border border-emerald-200 text-emerald-700 p-2 rounded-lg font-semibold">
+                        ✓ Host PIN updated successfully!
+                    </p>
+                </div>
+
+                <!-- Headcount Summary Cards -->
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4">
+                    <div class="bg-sky-50 border border-sky-200 p-4 rounded-2xl">
+                        <span class="text-xs font-bold text-sky-600 uppercase">Total Attending</span>
+                        <p id="statTotalGuests" class="font-display font-bold text-3xl text-sky-900 mt-1">0</p>
+                        <span class="text-[10px] text-sky-700">Adults + Children</span>
+                    </div>
+                    <div class="bg-indigo-50 border border-indigo-200 p-4 rounded-2xl">
+                        <span class="text-xs font-bold text-indigo-600 uppercase">Adults</span>
+                        <p id="statAdults" class="font-display font-bold text-3xl text-indigo-900 mt-1">0</p>
+                        <span class="text-[10px] text-indigo-700">Parents & Grown-ups</span>
+                    </div>
+                    <div class="bg-pink-50 border border-pink-200 p-4 rounded-2xl">
+                        <span class="text-xs font-bold text-pink-600 uppercase">Children</span>
+                        <p id="statKids" class="font-display font-bold text-3xl text-pink-900 mt-1">0</p>
+                        <span class="text-[10px] text-pink-700">Kids & Siblings</span>
+                    </div>
+                    <div class="bg-purple-50 border border-purple-200 p-4 rounded-2xl">
+                        <span class="text-xs font-bold text-purple-600 uppercase">Connections</span>
+                        <div class="text-[11px] text-purple-900 font-semibold mt-1 space-y-0.5">
+                            <div>Beau: <span id="statKnowBeau" class="font-bold">0</span></div>
+                            <div>Baylor: <span id="statKnowBaylor" class="font-bold">0</span></div>
+                            <div>Both: <span id="statKnowBoth" class="font-bold">0</span></div>
+                        </div>
+                    </div>
+                    <div class="bg-rose-50 border border-rose-200 p-4 rounded-2xl col-span-2 md:col-span-1">
+                        <span class="text-xs font-bold text-rose-600 uppercase">Declined</span>
+                        <p id="statDeclined" class="font-display font-bold text-3xl text-rose-900 mt-1">0</p>
+                        <span class="text-[10px] text-rose-700">Unable to attend</span>
+                    </div>
+                </div>
+
+                <!-- Search & Filters -->
+                <div class="flex flex-col sm:flex-row gap-3 items-center justify-between">
+                    <div class="relative w-full sm:w-72">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-xs"></i>
+                        <input type="text" id="hostSearchInput" oninput="renderHostTable()" placeholder="Search guest name or email..." class="w-full pl-9 pr-4 py-2 rounded-xl border border-slate-300 text-xs outline-none focus:ring-2 focus:ring-sky-500">
+                    </div>
+                    <div class="flex items-center space-x-2 overflow-x-auto w-full sm:w-auto pb-1">
+                        <button onclick="setHostFilter('all')" id="filterBtnAll" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white">All</button>
+                        <button onclick="setHostFilter('attending')" id="filterBtnAttending" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600">Attending</button>
+                        <button onclick="setHostFilter('declined')" id="filterBtnDeclined" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600">Declined</button>
+                    </div>
+                </div>
+
+                <!-- Guest Roster Table -->
+                <div class="overflow-x-auto border border-slate-200 rounded-2xl shadow-sm">
+                    <table class="w-full text-left text-xs border-collapse">
+                        <thead class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
+                            <tr>
+                                <th class="p-3">Guest Name</th>
+                                <th class="p-3">Status</th>
+                                <th class="p-3">Connection</th>
+                                <th class="p-3 text-center">Adults</th>
+                                <th class="p-3 text-center">Kids</th>
+                                <th class="p-3">Message</th>
+                                <th class="p-3 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="hostTableBody" class="divide-y divide-slate-100 text-slate-700">
+                            <!-- Dynamically populated -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl">
+            <div class="w-12 h-12 bg-rose-100 text-rose-500 rounded-full flex items-center justify-center text-xl mx-auto">
+                <i class="fa-solid fa-trash"></i>
+            </div>
+            <h4 class="font-display font-bold text-xl text-slate-900">Delete RSVP Record?</h4>
+            <p class="text-xs text-slate-500">This action will remove the response from the roster.</p>
+            <div class="flex gap-2">
+                <button onclick="confirmDeleteRsvp()" class="flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs">Delete</button>
+                <button onclick="closeDeleteModal()" class="flex-1 py-2.5 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global Application Handles
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'beau-baylor-bday-2026';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
+            apiKey: "demo-api-key",
+            authDomain: "demo-app.firebaseapp.com",
+            projectId: "demo-app",
+            storageBucket: "demo-app.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abcdef"
+        };
+
+        let app, auth, db;
+        let rsvpsList = [];
+        let hostFilter = 'all';
+        let deleteTargetId = null;
+        let currentHostPin = '1234';
+
+        async function initFirebase() {
+            try {
+                app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        subscribeToRsvps();
+                    }
+                });
+            } catch (err) {
+                console.warn("Firebase fallback mode active:", err);
+                rsvpsList = [...sampleDemoRsvps];
+                renderHostTable();
+                updateHostStats();
+            }
         }
-      });
-    });
 
-    // Handle Form Submit
-    async function handleFormSubmit(e) {
-      e.preventDefault();
-      const submitBtn = document.getElementById('submitBtn');
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = `<span>Saving...</span>`;
+        function subscribeToRsvps() {
+            if (!auth.currentUser) return;
+            // Rule 1 mandatory path: /artifacts/{appId}/public/data/{collectionName}
+            const rsvpsRef = collection(db, 'artifacts', appId, 'public', 'data', 'rsvps');
 
-      const attendingVal = document.querySelector('input[name="attending"]:checked').value;
-      const connectionVal = document.querySelector('input[name="connection"]:checked').value;
-
-      const payload = {
-        name: document.getElementById('guestName').value.trim(),
-        attending: attendingVal,
-        connection: connectionVal,
-        adults: attendingVal === 'Yes' ? parseInt(document.getElementById('adultCount').value) : 0,
-        kids: attendingVal === 'Yes' ? parseInt(document.getElementById('kidCount').value) : 0,
-        note: document.getElementById('guestNote').value.trim()
-      };
-
-      try {
-        if (GOOGLE_SHEET_SCRIPT_URL) {
-          await fetch(GOOGLE_SHEET_SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'text/plain' },
-            body: JSON.stringify(payload)
-          });
+            onSnapshot(rsvpsRef, (snapshot) => {
+                const items = [];
+                snapshot.forEach(docSnap => {
+                    items.push({ id: docSnap.id, ...docSnap.data() });
+                });
+                rsvpsList = items.length > 0 ? items : [...sampleDemoRsvps];
+                renderHostTable();
+                updateHostStats();
+            }, (error) => {
+                console.error("Firestore snapshot error:", error);
+                if (rsvpsList.length === 0) {
+                    rsvpsList = [...sampleDemoRsvps];
+                    renderHostTable();
+                    updateHostStats();
+                }
+            });
         }
 
-        // Save local copy
-        let localData = JSON.parse(localStorage.getItem('local_rsvps') || '[]');
-        payload.timestamp = new Date().toLocaleString();
-        localData.push(payload);
-        localStorage.setItem('local_rsvps', JSON.stringify(localData));
-
-        document.getElementById('confirmText').innerText = attendingVal === 'Yes'
-          ? `We can't wait to celebrate with you, ${payload.name}!`
-          : `We will miss you, ${payload.name}! Thanks for letting us know.`;
-
-        document.getElementById('confirmModal').classList.remove('hidden');
-        document.getElementById('confirmModal').classList.add('flex');
-        document.getElementById('rsvpForm').reset();
-        document.getElementById('adultCount').value = 1;
-        document.getElementById('kidCount').value = 1;
-      } catch (err) {
-        alert("Oops! There was a problem submitting your RSVP. Please try again.");
-        console.error(err);
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = `<span>Submit RSVP</span>`;
-      }
-    }
-
-    function closeModal() {
-      document.getElementById('confirmModal').classList.add('hidden');
-      document.getElementById('confirmModal').classList.remove('flex');
-    }
-
-    // Host Portal Functions
-    function openHostPortal() {
-      document.getElementById('hostModal').classList.remove('hidden');
-      document.getElementById('hostModal').classList.add('flex');
-    }
-
-    function closeHostPortal() {
-      document.getElementById('hostModal').classList.add('hidden');
-      document.getElementById('hostModal').classList.remove('flex');
-      document.getElementById('hostLockScreen').classList.remove('hidden');
-      document.getElementById('hostDashboard').classList.add('hidden');
-      document.getElementById('hostPinInput').value = '';
-    }
-
-    function verifyPin() {
-      const pin = document.getElementById('hostPinInput').value;
-      if (pin === activePin) {
-        document.getElementById('hostLockScreen').classList.add('hidden');
-        document.getElementById('hostDashboard').classList.remove('hidden');
-        loadHostData();
-      } else {
-        alert("Incorrect PIN. Please try again.");
-      }
-    }
-
-    function changePin() {
-      const newPin = prompt("Enter new PIN:");
-      if (newPin && newPin.trim() !== '') {
-        activePin = newPin.trim();
-        localStorage.setItem('host_pin', activePin);
-        alert("Host PIN updated successfully!");
-      }
-    }
-
-    async function loadHostData() {
-      const tableBody = document.getElementById('rsvpTableBody');
-      tableBody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-slate-500 font-medium">Loading responses from Google Sheet...</td></tr>';
-
-      let data = [];
-      try {
-        if (GOOGLE_SHEET_SCRIPT_URL) {
-          const res = await fetch(GOOGLE_SHEET_SCRIPT_URL);
-          data = await res.json();
-        }
-      } catch (err) {
-        console.warn("Using local cache as fallback", err);
-        data = JSON.parse(localStorage.getItem('local_rsvps') || '[]');
-      }
-
-      cachedRSVPs = data;
-      renderTableAndStats(data);
-    }
-
-    function renderTableAndStats(data) {
-      const tableBody = document.getElementById('rsvpTableBody');
-      tableBody.innerHTML = '';
-
-      let totalAttending = 0, adults = 0, kids = 0, declined = 0;
-
-      if (!data || data.length === 0) {
-        tableBody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-slate-400">No RSVPs received yet.</td></tr>';
-      } else {
-        data.forEach(item => {
-          const isYes = item.attending === 'Yes';
-          if (isYes) {
-            totalAttending++;
-            adults += parseInt(item.adults || 0);
-            kids += parseInt(item.kids || 0);
-          } else {
-            declined++;
-          }
-
-          const tr = document.createElement('tr');
-          tr.className = 'hover:bg-slate-50 transition';
-          tr.innerHTML = `
-            <td class="p-3 font-semibold text-slate-800">${item.name}</td>
-            <td class="p-3">
-              <span class="px-2 py-1 rounded-full text-xs font-bold ${isYes ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
-                ${isYes ? 'Attending' : 'Declined'}
-              </span>
-            </td>
-            <td class="p-3">${isYes ? (item.adults || 0) : '-'}</td>
-            <td class="p-3">${isYes ? (item.kids || 0) : '-'}</td>
-            <td class="p-3"><span class="px-2 py-0.5 bg-slate-100 rounded text-xs font-semibold">${item.connection || 'Both'}</span></td>
-            <td class="p-3 text-xs text-slate-500 max-w-xs truncate">${item.note || ''}</td>
-          `;
-          tableBody.appendChild(tr);
+        window.addEventListener('DOMContentLoaded', () => {
+            initFirebase();
+            initCountdown();
+            setupFormListeners();
         });
-      }
 
-      document.getElementById('statTotalAttending').innerText = totalAttending;
-      document.getElementById('statAdults').innerText = adults;
-      document.getElementById('statKids').innerText = kids;
-      document.getElementById('statDeclined').innerText = declined;
-    }
+        function initCountdown() {
+            // Target Date: Dec 13, 2026 12:00:00 EST
+            const targetDate = new Date("December 13, 2026 12:00:00").getTime();
 
-    function exportCSV() {
-      if (!cachedRSVPs || cachedRSVPs.length === 0) {
-        alert("No data available to export.");
-        return;
-      }
-      let csv = "Name,Status,Adults,Kids,Connection,Note\n";
-      cachedRSVPs.forEach(row => {
-        csv += `"${row.name}","${row.attending}",${row.adults || 0},${row.kids || 0},"${row.connection || 'Both'}","${(row.note || '').replace(/"/g, '""')}"\n`;
-      });
+            function updateTimer() {
+                const now = new Date().getTime();
+                const difference = targetDate - now;
 
-      const blob = new Blob([csv], { type: 'text/csv' });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'Beau_and_Baylor_RSVPs.csv';
-      a.click();
-    }
+                if (difference > 0) {
+                    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-    // Add to Calendar
-    function addToCalendar() {
-      const title = encodeURIComponent("Beau & Baylor's Birthday Party!");
-      const details = encodeURIComponent("Beau is turning 5 and Baylor is turning 8! Recess in Roswell.");
-      const location = encodeURIComponent("Recess in Roswell, 11510 Woodstock Rd, Roswell, GA 30075");
-      const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20261213T170000Z/20261213T190000Z&details=${details}&location=${location}`;
-      window.open(googleUrl, '_blank');
-    }
+                    document.getElementById('countDays').innerText = days;
+                    document.getElementById('countHours').innerText = hours;
+                    document.getElementById('countMins').innerText = minutes;
+                    document.getElementById('countSecs').innerText = seconds;
+                } else {
+                    document.getElementById('countDays').innerText = '0';
+                    document.getElementById('countHours').innerText = '0';
+                    document.getElementById('countMins').innerText = '0';
+                    document.getElementById('countSecs').innerText = '0';
+                }
+            }
 
-    // Countdown Timer
-    function updateCountdown() {
-      const partyDate = new Date("December 13, 2026 12:00:00").getTime();
-      const now = new Date().getTime();
-      const diff = partyDate - now;
+            updateTimer();
+            setInterval(updateTimer, 1000);
+        }
 
-      if (diff > 0) {
-        document.getElementById('cd-days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-        document.getElementById('cd-hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        document.getElementById('cd-mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      } else {
-        document.getElementById('countdown').innerHTML = `<span class="font-bold text-indigo-600">Party Day! 🎉</span>`;
-      }
-    }
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-  </script>
+        function setupFormListeners() {
+            const statusAccept = document.getElementById('statusAccept');
+            const statusDecline = document.getElementById('statusDecline');
+            const headcountContainer = document.getElementById('headcountContainer');
+
+            statusAccept.addEventListener('change', () => {
+                headcountContainer.classList.remove('hidden');
+            });
+
+            statusDecline.addEventListener('change', () => {
+                headcountContainer.classList.add('hidden');
+            });
+        }
+
+        window.adjustCount = function(fieldId, delta) {
+            const input = document.getElementById(fieldId);
+            const display = document.getElementById(fieldId + 'Display');
+            let current = parseInt(input.value) || 0;
+            current = Math.max(0, current + delta);
+
+            if (fieldId === 'adultsCount' && current < 1 && document.getElementById('statusAccept').checked) {
+                current = 1;
+            }
+
+            input.value = current;
+            display.innerText = current;
+        };
+
+        window.handleRsvpSubmit = async function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const submitBtnText = document.getElementById('submitBtnText');
+            const submitBtnSpinner = document.getElementById('submitBtnSpinner');
+
+            submitBtn.disabled = true;
+            submitBtnText.classList.add('hidden');
+            submitBtnSpinner.classList.remove('hidden');
+
+            const status = document.querySelector('input[name="attendanceStatus"]:checked').value;
+            const connection = document.querySelector('input[name="connection"]:checked').value;
+            const firstName = document.getElementById('guestFirstName').value.trim();
+            const lastName = document.getElementById('guestLastName').value.trim();
+            const email = document.getElementById('guestEmail').value.trim();
+            const phone = document.getElementById('guestPhone').value.trim();
+
+            const isAttending = status === 'Accepts';
+            const adults = isAttending ? parseInt(document.getElementById('adultsCount').value) || 1 : 0;
+            const kids = isAttending ? parseInt(document.getElementById('kidsCount').value) || 0 : 0;
+            const birthdayWish = document.getElementById('birthdayWish').value.trim();
+
+            const rsvpRecord = {
+                firstName,
+                lastName,
+                email,
+                phone,
+                attendanceStatus: status,
+                connection,
+                adultsCount: adults,
+                kidsCount: kids,
+                birthdayWish,
+                createdAt: new Date().toISOString()
+            };
+
+            try {
+                if (db && auth && auth.currentUser) {
+                    const rsvpsRef = collection(db, 'artifacts', appId, 'public', 'data', 'rsvps');
+                    await addDoc(rsvpsRef, rsvpRecord);
+                } else {
+                    rsvpRecord.id = 'local-' + Date.now();
+                    rsvpsList.push(rsvpRecord);
+                    renderHostTable();
+                    updateHostStats();
+                }
+
+                if (window.confetti && isAttending) {
+                    confetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.6 }
+                    });
+                }
+
+                showConfirmationModal(rsvpRecord);
+                document.getElementById('rsvpForm').reset();
+                document.getElementById('adultsCount').value = 1;
+                document.getElementById('adultsCountDisplay').innerText = '1';
+                document.getElementById('kidsCount').value = 1;
+                document.getElementById('kidsCountDisplay').innerText = '1';
+
+            } catch (err) {
+                console.error("Error submitting RSVP:", err);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtnText.classList.remove('hidden');
+                submitBtnSpinner.classList.add('hidden');
+            }
+        };
+
+        function showConfirmationModal(rsvp) {
+            const modal = document.getElementById('confirmationModal');
+            const confirmBox = document.getElementById('confirmDetailsBox');
+            const messageText = document.getElementById('confirmMessageText');
+
+            if (rsvp.attendanceStatus === 'Accepts') {
+                messageText.innerText = "We're so excited to celebrate with you at Recess in Roswell!";
+                confirmBox.innerHTML = `
+                    <p class="font-bold text-slate-800 text-sm">Guest Details:</p>
+                    <p><strong>Name:</strong> ${rsvp.firstName} ${rsvp.lastName}</p>
+                    <p><strong>Connection:</strong> Celebrating ${rsvp.connection}</p>
+                    <p><strong>Headcount:</strong> ${rsvp.adultsCount} Adult(s), ${rsvp.kidsCount} Kid(s)</p>
+                    <p class="text-xs text-sky-700 font-semibold mt-2"><i class="fa-solid fa-calendar mr-1"></i> Sunday, Dec 13th • 12:00 PM – 2:00 PM</p>
+                `;
+            } else {
+                messageText.innerText = "We'll miss you at the party, but thank you for letting us know!";
+                confirmBox.innerHTML = `
+                    <p><strong>Name:</strong> ${rsvp.firstName} ${rsvp.lastName}</p>
+                    <p><strong>Status:</strong> Regretfully Declines</p>
+                    ${rsvp.birthdayWish ? `<p><strong>Message:</strong> "${rsvp.birthdayWish}"</p>` : ''}
+                `;
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        window.closeConfirmationModal = function() {
+            document.getElementById('confirmationModal').classList.add('hidden');
+        };
+
+        window.openCalendarModal = function() {
+            document.getElementById('calendarModal').classList.remove('hidden');
+        };
+
+        window.closeCalendarModal = function() {
+            document.getElementById('calendarModal').classList.add('hidden');
+        };
+
+        window.downloadIcsFile = function() {
+            const icsData =
+`BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Beau and Baylor Joint Birthday Party//EN
+BEGIN:VEVENT
+SUMMARY:Beau & Baylor's Joint Birthday Party!
+DESCRIPTION:Beau is turning 5 & Baylor is turning 8! Indoor/outdoor play at Recess in Roswell. Food provided. Adult beverages available for purchase.
+LOCATION:11510 Woodstock Rd, Roswell, GA 30075
+DTSTART:20261213T170000Z
+DTEND:20261213T190000Z
+END:VEVENT
+END:VCALENDAR`;
+
+            const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.setAttribute('download', 'Beau_and_Baylor_Birthday_Party.ics');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        };
+
+        window.openHostModal = function() {
+            document.getElementById('hostPinInput').value = '';
+            document.getElementById('pinErrorMessage').classList.add('hidden');
+            document.getElementById('hostModal').classList.remove('hidden');
+        };
+
+        window.closeHostModal = function() {
+            document.getElementById('hostModal').classList.add('hidden');
+        };
+
+        window.verifyHostPin = function() {
+            const pinInput = document.getElementById('hostPinInput').value;
+            const errBox = document.getElementById('pinErrorMessage');
+            if (pinInput === currentHostPin) {
+                errBox.classList.add('hidden');
+                document.getElementById('hostAuthView').classList.add('hidden');
+                document.getElementById('hostDashboardView').classList.remove('hidden');
+                renderHostTable();
+                updateHostStats();
+            } else {
+                errBox.classList.remove('hidden');
+            }
+        };
+
+        window.toggleChangePinUI = function() {
+            const changePinBox = document.getElementById('changePinBox');
+            changePinBox.classList.toggle('hidden');
+        };
+
+        window.updateHostPin = function() {
+            const newPin = document.getElementById('newPinInput').value.trim();
+            const errText = document.getElementById('pinLengthError');
+            if (newPin.length >= 4) {
+                currentHostPin = newPin;
+                document.getElementById('changePinBox').classList.add('hidden');
+                errText.classList.add('hidden');
+                const successMsg = document.getElementById('pinChangeSuccess');
+                successMsg.classList.remove('hidden');
+                setTimeout(() => successMsg.classList.add('hidden'), 3000);
+            } else {
+                errText.classList.remove('hidden');
+            }
+        };
+
+        window.setHostFilter = function(filter) {
+            hostFilter = filter;
+            ['All', 'Attending', 'Declined'].forEach(f => {
+                const btn = document.getElementById(`filterBtn${f}`);
+                if (f.toLowerCase() === filter) {
+                    btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white";
+                } else {
+                    btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600";
+                }
+            });
+            renderHostTable();
+        };
+
+        function updateHostStats() {
+            let totalGuests = 0;
+            let adults = 0;
+            let kids = 0;
+            let beauCount = 0;
+            let baylorCount = 0;
+            let bothCount = 0;
+            let declined = 0;
+
+            rsvpsList.forEach(r => {
+                if (r.attendanceStatus === 'Accepts') {
+                    const a = parseInt(r.adultsCount) || 0;
+                    const k = parseInt(r.kidsCount) || 0;
+                    adults += a;
+                    kids += k;
+                    totalGuests += (a + k);
+
+                    if (r.connection === 'Beau') beauCount++;
+                    else if (r.connection === 'Baylor') baylorCount++;
+                    else bothCount++;
+                } else {
+                    declined++;
+                }
+            });
+
+            document.getElementById('statTotalGuests').innerText = totalGuests;
+            document.getElementById('statAdults').innerText = adults;
+            document.getElementById('statKids').innerText = kids;
+            document.getElementById('statKnowBeau').innerText = beauCount;
+            document.getElementById('statKnowBaylor').innerText = baylorCount;
+            document.getElementById('statKnowBoth').innerText = bothCount;
+            document.getElementById('statDeclined').innerText = declined;
+        }
+
+        window.renderHostTable = function() {
+            const tbody = document.getElementById('hostTableBody');
+            const search = (document.getElementById('hostSearchInput')?.value || '').toLowerCase();
+
+            let filtered = rsvpsList.filter(r => {
+                const fullName = `${r.firstName} ${r.lastName}`.toLowerCase();
+                const email = (r.email || '').toLowerCase();
+                const matchesSearch = fullName.includes(search) || email.includes(search);
+
+                if (hostFilter === 'attending') return matchesSearch && r.attendanceStatus === 'Accepts';
+                if (hostFilter === 'declined') return matchesSearch && r.attendanceStatus === 'Declines';
+                return matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="p-6 text-center text-slate-400">
+                            No matching RSVP responses found.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(r => {
+                const isAccept = r.attendanceStatus === 'Accepts';
+                const statusBadge = isAccept
+                    ? `<span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full text-[10px]">Accepts</span>`
+                    : `<span class="bg-rose-100 text-rose-800 font-bold px-2.5 py-0.5 rounded-full text-[10px]">Declines</span>`;
+
+                let connBadge = `<span class="bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded text-[10px]">Both</span>`;
+                if (r.connection === 'Beau') connBadge = `<span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">Beau</span>`;
+                if (r.connection === 'Baylor') connBadge = `<span class="bg-pink-100 text-pink-800 font-bold px-2 py-0.5 rounded text-[10px]">Baylor</span>`;
+
+                return `
+                    <tr class="hover:bg-slate-50 transition">
+                        <td class="p-3">
+                            <div class="font-bold text-slate-900">${r.firstName} ${r.lastName}</div>
+                            <div class="text-[10px] text-slate-500">${r.email} ${r.phone ? '• ' + r.phone : ''}</div>
+                        </td>
+                        <td class="p-3">${statusBadge}</td>
+                        <td class="p-3">${connBadge}</td>
+                        <td class="p-3 text-center font-bold">${isAccept ? r.adultsCount : '-'}</td>
+                        <td class="p-3 text-center font-bold">${isAccept ? r.kidsCount : '-'}</td>
+                        <td class="p-3">
+                            ${r.birthdayWish ? `<div class="text-[10px] text-slate-500 italic">"${r.birthdayWish}"</div>` : '-'}
+                        </td>
+                        <td class="p-3 text-right">
+                            <button onclick="promptDeleteRsvp('${r.id}')" class="text-rose-500 hover:text-rose-700 font-bold px-2 py-1">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        };
+
+        window.promptDeleteRsvp = function(id) {
+            deleteTargetId = id;
+            document.getElementById('deleteModal').classList.remove('hidden');
+        };
+
+        window.closeDeleteModal = function() {
+            deleteTargetId = null;
+            document.getElementById('deleteModal').classList.add('hidden');
+        };
+
+        window.confirmDeleteRsvp = async function() {
+            if (!deleteTargetId) return;
+
+            try {
+                if (db && auth && auth.currentUser && !deleteTargetId.startsWith('demo-') && !deleteTargetId.startsWith('local-')) {
+                    const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'rsvps', deleteTargetId);
+                    await deleteDoc(docRef);
+                } else {
+                    rsvpsList = rsvpsList.filter(r => r.id !== deleteTargetId);
+                    renderHostTable();
+                    updateHostStats();
+                }
+            } catch (err) {
+                console.error("Error deleting record:", err);
+            } finally {
+                closeDeleteModal();
+            }
+        };
+
+        window.exportToCSV = function() {
+            if (rsvpsList.length === 0) {
+                return;
+            }
+
+            const headers = ["First Name", "Last Name", "Email", "Phone", "Status", "Connection", "Adults", "Kids", "Birthday Message", "Submitted At"];
+            const rows = rsvpsList.map(r => [
+                `"${r.firstName || ''}"`,
+                `"${r.lastName || ''}"`,
+                `"${r.email || ''}"`,
+                `"${r.phone || ''}"`,
+                `"${r.attendanceStatus || ''}"`,
+                `"${r.connection || ''}"`,
+                r.adultsCount || 0,
+                r.kidsCount || 0,
+                `"${(r.birthdayWish || '').replace(/"/g, '""')}"`,
+                `"${r.createdAt || ''}"`
+            ]);
+
+            const csvContent = "data:text/csv;charset=utf-8,"
+                + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `Beau_And_Baylor_Party_RSVP_List.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        };
+    </script>
 </body>
 </html>
