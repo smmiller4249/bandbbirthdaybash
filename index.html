@@ -364,6 +364,7 @@
                     <div>
                         <label for="guestEmail" class="block text-xs font-bold text-slate-700 mb-1">Email Address <span class="text-rose-500">*</span></label>
                         <input type="email" id="guestEmail" required placeholder="name@example.com" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none text-sm transition">
+                        <p class="text-[11px] text-slate-500 mt-1">Re-submitting with this email will update your existing RSVP.</p>
                     </div>
                     <div>
                         <label for="guestPhone" class="block text-xs font-bold text-slate-700 mb-1">Phone Number (Optional)</label>
@@ -435,7 +436,8 @@
             </div>
 
             <h3 class="font-display font-bold text-2xl sm:text-3xl text-slate-900 mb-2">RSVP Received! 🎉</h3>
-            <p id="confirmMessageText" class="text-slate-600 text-sm mb-6">Thank you! Your response has been saved.</p>
+            <p id="confirmMessageText" class="text-slate-600 text-sm mb-4">Thank you! Your response has been saved.</p>
+            <p class="text-xs text-sky-600 font-semibold mb-6"><i class="fa-solid fa-envelope mr-1"></i> A confirmation email has been sent to your inbox!</p>
 
             <div id="confirmDetailsBox" class="bg-slate-50 p-4 rounded-2xl text-left border border-slate-200 mb-6 space-y-2 text-xs sm:text-sm">
                 <!-- Dynamically Populated -->
@@ -641,7 +643,7 @@
 
             const firstName = document.getElementById('guestFirstName').value.trim();
             const lastName = document.getElementById('guestLastName').value.trim();
-            const email = document.getElementById('guestEmail').value.trim();
+            const email = document.getElementById('guestEmail').value.trim().toLowerCase();
             const phone = document.getElementById('guestPhone').value.trim();
             const attendanceStatus = document.querySelector('input[name="attendanceStatus"]:checked').value;
             const connection = document.querySelector('input[name="connection"]:checked').value;
@@ -663,8 +665,13 @@
                 phone: phone
             };
 
-            // Save locally
-            localRsvps.push(payload);
+            // Update local storage entry if matching email exists, else append
+            const existingIndex = localRsvps.findIndex(item => (item.email || '').toLowerCase() === email);
+            if (existingIndex >= 0) {
+                localRsvps[existingIndex] = payload;
+            } else {
+                localRsvps.push(payload);
+            }
             localStorage.setItem('beau_baylor_rsvps', JSON.stringify(localRsvps));
 
             // Sync with Google Apps Script
@@ -696,6 +703,7 @@
                 <p><strong>Status:</strong> ${isYes ? '🎉 Attending' : '😢 Regretfully Decline'}</p>
                 ${isYes ? `<p><strong>Head Count:</strong> ${adultsCount} Adult(s),${kidsCount} Child(ren)</p>` : ''}
                 <p><strong>Celebrating:</strong> ${connection}</p>
+                <p><strong>Confirmation Email Sent To:</strong> ${email}</p>
             `;
 
             document.getElementById('confirmationModal').classList.remove('hidden');
