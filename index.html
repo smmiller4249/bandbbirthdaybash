@@ -580,10 +580,10 @@
     <!-- JavaScript Logic -->
     <script>
         // Google Sheet Web App Exec URL
-        const GOOGLE_SHEET_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzyaRmRklEM-e5R-p98cD3E7UDMQSQh5gFxY4VCfipe08etVshOjqLLRlqRLzv-fo9E/exec";
+        const GOOGLE_SHEET_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwj9KFBITTJ4CVF-eDmQxv3JCrFqlQv7T4Dt9NRVjPKwu2wc9O46TGmxTd_zgB5sHn_2w/exec";
 
         let localRsvps = JSON.parse(localStorage.getItem('beau_baylor_rsvps') || '[]');
-        let hostPin = "1206";
+        const hostPin = "1206";
 
         // Toggle headcount visibility based on attendance choice
         document.querySelectorAll('input[name="attendanceStatus"]').forEach(radio => {
@@ -764,7 +764,7 @@ END:VCALENDAR`;
 
         function verifyHostPin() {
             const entered = document.getElementById('hostPinInput').value;
-            if (entered === hostPin || entered === "party2026") {
+            if (entered === hostPin) {
                 document.getElementById('hostLockView').classList.add('hidden');
                 document.getElementById('hostDashboardView').classList.remove('hidden');
                 fetchHostData();
