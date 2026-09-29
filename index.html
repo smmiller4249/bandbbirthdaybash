@@ -507,29 +507,6 @@
                     Incorrect PIN. Please try again.
                 </div>
 
-                <!-- Host PIN Banner with Dynamic Hint & Change Option -->
-                <div class="text-xs bg-amber-50 border border-amber-200 text-amber-800 p-3 rounded-xl font-mono flex items-center justify-between shadow-sm">
-                    <span class="flex items-center">
-                        <i class="fa-solid fa-circle-info text-amber-500 mr-2 text-sm"></i>
-                        <span>Host PIN: <strong id="currentPinDisplay" class="text-slate-900 font-bold bg-amber-200/70 px-1.5 py-0.5 rounded">1234</strong></span>
-                    </span>
-                    <button type="button" onclick="toggleChangePinUI()" class="text-[11px] text-amber-700 hover:text-amber-900 underline font-sans font-semibold">Change PIN</button>
-                </div>
-
-                <!-- Inline Change PIN Box -->
-                <div id="changePinBox" class="hidden bg-slate-50 p-3 rounded-xl border border-slate-200 text-left space-y-2">
-                    <label class="block text-[11px] font-bold text-slate-700">Set New Host PIN:</label>
-                    <div class="flex gap-2">
-                        <input type="password" id="newPinInput" placeholder="New PIN (min 4 chars)" class="flex-1 px-3 py-1.5 text-xs border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-amber-500">
-                        <button type="button" onclick="updateHostPin()" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold text-xs rounded-lg transition">Save</button>
-                    </div>
-                    <p id="pinLengthError" class="hidden text-[10px] text-rose-600 font-sans">PIN must be at least 4 characters.</p>
-                </div>
-
-                <div id="pinChangeSuccess" class="hidden text-xs bg-emerald-50 border border-emerald-200 text-emerald-700 p-2 rounded-lg font-semibold">
-                    ✓ Host PIN updated successfully!
-                </div>
-
                 <input type="password" id="hostPinInput" placeholder="Enter PIN" class="w-full text-center tracking-widest text-2xl font-bold py-3 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-amber-500">
                 <button onclick="verifyHostPin()" class="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold transition shadow-sm">
                     Unlock Dashboard
@@ -548,11 +525,27 @@
                         </span>
                         <span class="font-semibold text-slate-700">Live Sync Active</span>
                     </div>
-                    <div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="toggleChangePinUI()" class="px-3 py-1.5 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold flex items-center transition">
+                            <i class="fa-solid fa-key mr-1.5"></i> Change PIN
+                        </button>
                         <button onclick="exportToCSV()" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold flex items-center shadow-sm">
                             <i class="fa-solid fa-file-csv mr-1.5"></i> Export CSV
                         </button>
                     </div>
+                </div>
+
+                <!-- Inline Change PIN Box -->
+                <div id="changePinBox" class="hidden bg-slate-50 p-3 rounded-xl border border-slate-200 text-left space-y-2">
+                    <label class="block text-[11px] font-bold text-slate-700">Set New Host PIN:</label>
+                    <div class="flex gap-2">
+                        <input type="password" id="newPinInput" placeholder="New PIN (min 4 chars)" class="flex-1 px-3 py-1.5 text-xs border border-slate-300 rounded-lg outline-none focus:ring-2 focus:ring-amber-500">
+                        <button type="button" onclick="updateHostPin()" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold text-xs rounded-lg transition">Save</button>
+                    </div>
+                    <p id="pinLengthError" class="hidden text-[10px] text-rose-600 font-sans">PIN must be at least 4 characters.</p>
+                    <p id="pinChangeSuccess" class="hidden text-xs bg-emerald-50 border border-emerald-200 text-emerald-700 p-2 rounded-lg font-semibold">
+                        ✓ Host PIN updated successfully!
+                    </p>
                 </div>
 
                 <!-- Headcount Summary Cards -->
@@ -905,6 +898,8 @@ END:VCALENDAR`;
         };
 
         window.openHostModal = function() {
+            document.getElementById('hostPinInput').value = '';
+            document.getElementById('pinErrorMessage').classList.add('hidden');
             document.getElementById('hostModal').classList.remove('hidden');
         };
 
@@ -936,7 +931,6 @@ END:VCALENDAR`;
             const errText = document.getElementById('pinLengthError');
             if (newPin.length >= 4) {
                 currentHostPin = newPin;
-                document.getElementById('currentPinDisplay').innerText = newPin;
                 document.getElementById('changePinBox').classList.add('hidden');
                 errText.classList.add('hidden');
                 const successMsg = document.getElementById('pinChangeSuccess');
