@@ -478,7 +478,7 @@
 
     <!-- Host Admin Modal & Dashboard -->
     <div id="hostModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-6 hidden">
-        <div class="bg-white rounded-3xl max-w-5xl w-full max-h-[92vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden">
+        <div class="bg-white rounded-3xl max-w-6xl w-full max-h-[92vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden">
 
             <!-- Modal Header -->
             <div class="p-4 sm:p-6 bg-slate-900 text-white flex items-center justify-between">
@@ -561,6 +561,8 @@
                                 <th class="p-3 text-center">Adults</th>
                                 <th class="p-3 text-center">Kids</th>
                                 <th class="p-3">Connection</th>
+                                <th class="p-3">Email</th>
+                                <th class="p-3">Phone</th>
                                 <th class="p-3">Notes</th>
                             </tr>
                         </thead>
@@ -788,7 +790,7 @@ END:VCALENDAR`;
             let attendingFamilies = 0, totalAdults = 0, totalKids = 0, totalDeclined = 0;
 
             if (!data || data.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-slate-400 font-medium">No RSVPs recorded yet.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="8" class="p-6 text-center text-slate-400 font-medium">No RSVPs recorded yet.</td></tr>`;
             } else {
                 data.forEach(item => {
                     const isYes = item.status === 'Attending' || item.status === 'Accepts';
@@ -812,6 +814,8 @@ END:VCALENDAR`;
                         <td class="p-3 text-center">${isYes ? (item.adults || 0) : '-'}</td>
                         <td class="p-3 text-center">${isYes ? (item.kids || 0) : '-'}</td>
                         <td class="p-3"><span class="px-2 py-0.5 bg-slate-100 rounded text-[10px] font-bold">${item.connection || 'Both'}</span></td>
+                        <td class="p-3 text-slate-600">${item.email || '-'}</td>
+                        <td class="p-3 text-slate-600">${item.phone || '-'}</td>
                         <td class="p-3 text-slate-500 max-w-xs truncate">${item.notes || item.note || ''}</td>
                     `;
                     tbody.appendChild(tr);
@@ -841,9 +845,9 @@ END:VCALENDAR`;
                 alert("No RSVP data available to export.");
                 return;
             }
-            let csv = "Timestamp,Guest Name,Status,Adults,Kids,Connection,Notes\n";
+            let csv = "Timestamp,Guest Name,Status,Adults,Kids,Connection,Email,Phone,Notes\n";
             localRsvps.forEach(r => {
-                csv += `"${r.timestamp || ''}","${r.guestName || ''}","${r.status || ''}",${r.adults || 0},${r.kids || 0},"${r.connection || 'Both'}","${(r.notes || '').replace(/"/g, '""')}"\n`;
+                csv += `"${r.timestamp || ''}","${r.guestName || ''}","${r.status || ''}",${r.adults || 0},${r.kids || 0},"${r.connection || 'Both'}","${r.email || ''}","${r.phone || ''}","${(r.notes || '').replace(/"/g, '""')}"\n`;
             });
 
             const blob = new Blob([csv], { type: 'text/csv' });
