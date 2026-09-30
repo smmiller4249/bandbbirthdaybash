@@ -1,53 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>You're Invited! Beau & Baylor's Birthday Bash</title>
-  
-  <!-- Open Graph for Rich Link Previews in Text Messages -->
-  <meta property="og:title" content="Beau & Baylor's Birthday Bash Invitation!">
+  <title>You're Invited! Beau & Baylor's Joint Birthday Party</title>
+
+  <!-- Open Graph Meta Tags (for rich link previews when texted) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="🎈 You're Invited: Beau & Baylor's Birthday Bash!">
   <meta property="og:description" content="Baylor is turning 8 & Beau is turning 5! Tap to view details and RSVP.">
   <meta property="og:image" content="https://smmiller4249.github.io/bandbbirthdaybash/invite.png">
   <meta property="og:url" content="https://smmiller4249.github.io/bandbbirthdaybash/invite.html">
 
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Fredoka', 'cursive', 'sans-serif'],
+            body: ['Outfit', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Fredoka & Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    body { font-family: 'Outfit', sans-serif; }
-    .font-display { font-family: 'Fredoka', cursive, sans-serif; }
+    body {
+      font-family: 'Outfit', sans-serif;
+    }
+    .font-display {
+      font-family: 'Fredoka', cursive, sans-serif;
+    }
+    @keyframes pulse-subtle {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.025); }
+    }
+    .animate-pulse-subtle {
+      animation: pulse-subtle 2.2s infinite ease-in-out;
+    }
   </style>
 </head>
-<body class="bg-gradient-to-b from-sky-100 via-purple-50 to-pink-100 min-h-screen flex items-center justify-center p-3 sm:p-6">
+<body class="bg-gradient-to-b from-sky-100 via-purple-50 to-pink-100 min-h-screen py-8 px-4 flex items-center justify-center">
 
-  <div class="max-w-md w-full bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
+  <main class="max-w-md w-full bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
     
-    <!-- Invitation Image -->
+    <!-- Invitation Graphic -->
     <div class="relative bg-slate-100">
-      <img src="invite.png" alt="Beau and Baylor Birthday Invitation" class="w-full h-auto block select-none">
+      <img 
+        src="invite.png" 
+        alt="Baylor is Floating on Cloud 8 and Beau is Cruising on Route 5 Birthday Invitation" 
+        class="w-full h-auto block select-none"
+        loading="eager"
+      />
     </div>
 
-    <!-- Interactive RSVP Call-to-Action -->
-    <div class="p-6 text-center space-y-4 bg-white">
-      <a href="https://smmiller4249.github.io/bandbbirthdaybash/#rsvp" 
-         class="block w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-sky-500 via-indigo-500 to-pink-500 hover:opacity-95 text-white font-display font-bold text-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 active:translate-y-0 animate-bounce">
+    <!-- Quick Details & Action Section -->
+    <div class="p-6 sm:p-7 text-center space-y-5 bg-white">
+      
+      <!-- Primary Big Action Button (links directly to the top of the main site) -->
+      <a 
+        href="https://smmiller4249.github.io/bandbbirthdaybash/" 
+        class="animate-pulse-subtle block w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-sky-500 via-indigo-500 to-pink-500 hover:opacity-95 text-white font-display font-bold text-xl shadow-lg hover:shadow-xl transition-all active:scale-95"
+      >
         💌 Click Here to RSVP!
       </a>
 
-      <div class="pt-2 border-t border-slate-100 flex items-center justify-center gap-4 text-xs font-semibold text-slate-500">
-        <span><i class="fa-solid fa-calendar-day text-amber-500 mr-1"></i> Dec 13, 2026</span>
-        <span>•</span>
-        <a href="https://www.google.com/maps/search/?api=1&query=11510+Woodstock+Rd,+Roswell,+GA+30075" target="_blank" class="hover:text-sky-600 underline">
-          <i class="fa-solid fa-location-dot text-rose-500 mr-1"></i> Recess in Roswell
-        </a>
+      <!-- Date & Venue Summary Badges -->
+      <div class="grid grid-cols-2 gap-2 text-left pt-1">
+        <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-3">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">When</p>
+          <p class="text-xs font-bold text-slate-800">Sun, Dec 13, 2026</p>
+          <p class="text-[11px] text-slate-500 font-medium">12:00 PM – 2:00 PM</p>
+        </div>
+        <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-3">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Where</p>
+          <p class="text-xs font-bold text-slate-800">Recess in Roswell</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=11510+Woodstock+Rd,+Roswell,+GA+30075" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-sky-600 hover:underline">
+            View Map & Directions <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+          </a>
+        </div>
       </div>
-    </div>
 
-  </div>
+      <!-- Secondary Info Note -->
+      <p class="text-xs text-slate-500 leading-relaxed border-t border-slate-100 pt-3">
+        Whole family welcome! Food provided. Tap the button above to view all party details and RSVP!
+      </p>
+
+    </div>
+  </main>
 
 </body>
 </html>
